@@ -14,4 +14,19 @@ public class MQReceiver {
     public void receive(String message){
         log.info("receive message" + message);
     }
+
+    @RabbitListener(queues = MQConfig.TOPIC_QUEUE1)
+    public void receiveTopic1(String message){
+        log.info("receive message from tq1" + message);
+    }
+    @RabbitListener(queues = MQConfig.TOPIC_QUEUE2)
+    public void receiveTopic2(String message){
+        log.info("receive message from tq2" + message);
+    }
+
+    @RabbitListener(queues = MQConfig.HEADER_QUEUE)
+    public void receiveHeader(String message){
+        log.info("receive message from header" + message);
+    }
+
 }
