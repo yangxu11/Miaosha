@@ -108,11 +108,13 @@ function render(detail){
 	$("#stockCount").text(goods.stockCount);
 	countDown();
 }
-
 $(function(){
-	//countDown();
+    alert("111");
 	getDetail();
 });
+// $(document).ready(function() {
+//     getDetail();
+// });
 
 function getDetail(){
 	var goodsId = g_getQueryString("goodsId");
