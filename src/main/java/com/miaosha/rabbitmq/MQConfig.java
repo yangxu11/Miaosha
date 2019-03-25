@@ -9,6 +9,7 @@ import java.util.Map;
 
 @Configuration
 public class MQConfig {
+    public static final String MIAOSHAQUEUE = "miaosha.queue";
     public static final String QUEUE = "queue";
     public static final String TOPIC_QUEUE1 = "topic-queue1";
     public static final String TOPIC_QUEUE2 = "topic-queue2";
@@ -17,6 +18,11 @@ public class MQConfig {
     public static final String HEADER_QUEUE = "header-queue";
     public static final String HEADER_EXCHANGE = "header-exchange";
 
+
+    @Bean
+    public static Queue miaoshaQueue(){
+        return new Queue(MQConfig.MIAOSHAQUEUE,true);
+    }
     //direct 方式
     @Bean
     public static Queue queue(){
