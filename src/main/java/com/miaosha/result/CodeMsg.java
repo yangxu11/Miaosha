@@ -1,7 +1,8 @@
 package com.miaosha.result;
 
 public class CodeMsg {
-	
+
+
 	private int code;
 	private String msg;
 	
@@ -24,7 +25,9 @@ public class CodeMsg {
 	//秒杀模块 5005XX
 	public static CodeMsg MIAO_SHA_OVER = new CodeMsg(500500, "商品已经秒杀完毕");
 	public static CodeMsg REPEATE_MIAOSHA = new CodeMsg(500501, "不能重复秒杀");
-	
+	public static CodeMsg MIAOSHA_PATH_ERROR = new CodeMsg(500502,"秒杀路径错误");
+	public static final CodeMsg MIAOSHA_FAIL = new CodeMsg(500503,"秒杀失败");
+	public static final CodeMsg MIAOSHA_VERIFICODE_ERROR = new CodeMsg(500504,"秒杀验证码失败");
 	
 	private CodeMsg( ) {
 	}

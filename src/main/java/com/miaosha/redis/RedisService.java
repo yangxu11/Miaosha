@@ -56,7 +56,7 @@ public class RedisService {
 		 }
 	}
 
-	public void delete(MiaoshaUserKey prefix, String key) {
+	public void delete(KeyPrefix prefix, String key) {
 		Jedis jedis = null;
 		try {
 			jedis =  jedisPool.getResource();
