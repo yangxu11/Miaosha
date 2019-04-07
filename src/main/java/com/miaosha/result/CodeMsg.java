@@ -28,7 +28,7 @@ public class CodeMsg {
 	public static CodeMsg MIAOSHA_PATH_ERROR = new CodeMsg(500502,"秒杀路径错误");
 	public static final CodeMsg MIAOSHA_FAIL = new CodeMsg(500503,"秒杀失败");
 	public static final CodeMsg MIAOSHA_VERIFICODE_ERROR = new CodeMsg(500504,"秒杀验证码失败");
-	
+	public static final CodeMsg ACCESS_OVERTIME = new CodeMsg(500505,"访问过于频繁");
 	private CodeMsg( ) {
 	}
 			

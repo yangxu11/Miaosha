@@ -1,5 +1,6 @@
 package com.miaosha.controller;
 
+import com.miaosha.access.Access;
 import com.miaosha.rabbitmq.MQSender;
 import com.miaosha.rabbitmq.MiaoshaMessage;
 import com.miaosha.redis.GoodsKey;
@@ -140,6 +141,7 @@ public class MiaoshaController implements InitializingBean {
 	 * @Param [model, user, goodsId]
 	 * @return com.miaosha.result.Result<java.lang.Long>
 	 **/
+	@Access(maxCount=5,seconds=5)
 	@RequestMapping(value="/path", method=RequestMethod.GET)
 	@ResponseBody
 	public Result<String> path(Model model, MiaoshaUser user,
