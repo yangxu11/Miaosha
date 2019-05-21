@@ -85,7 +85,10 @@ function doLogin(){
 	    	if(data.code == 0){
 	    		layer.msg("成功");
 	    		window.location.href="/goods/to_list";
-	    	}else{
+	    	}else if(data.code == 1){
+	    		layer.msg("商家登录成功")
+				window.location.href="/merchant_control.htm";
+			}else{
 	    		layer.msg(data.msg);
 	    	}
 	    },

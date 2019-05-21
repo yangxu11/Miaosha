@@ -9,4 +9,6 @@ public class MiaoshaUserKey extends BasePrefix{
 	}
 	public static MiaoshaUserKey token = new MiaoshaUserKey(TOKEN_EXPIRE, "tk");
     public static MiaoshaUserKey getById = new MiaoshaUserKey(TOKEN_EXPIRE,"getById");
+    public static MiaoshaUserKey merchant = new MiaoshaUserKey(TOKEN_EXPIRE,"mid");
+
 }

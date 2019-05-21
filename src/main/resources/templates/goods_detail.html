@@ -64,6 +64,9 @@
         <td colspan="3" th:text="${goods.stockCount}"></td>  
      </tr>
   </table>
+    <div>
+        <a th:href="'/chat.htm?goodsId='+${goods.id}">详情</a>
+    </div>
 </div>
 </body>
 <script>

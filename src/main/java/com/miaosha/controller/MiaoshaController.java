@@ -55,7 +55,7 @@ public class MiaoshaController implements InitializingBean {
 	@Autowired
 	MQSender sender;
 
-	private HashMap<Long, Boolean> localOverMap =  new HashMap<>();
+	private HashMap<Long, Boolean> localOverMap =  new HashMap<Long, Boolean>();
 
 	@Override
 /*

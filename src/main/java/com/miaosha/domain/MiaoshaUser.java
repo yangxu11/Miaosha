@@ -11,6 +11,7 @@ public class MiaoshaUser {
 	private Date registerDate;
 	private Date lastLoginDate;
 	private Integer loginCount;
+	private Integer merchant;
 	public Long getId() {
 		return id;
 	}
@@ -58,5 +59,26 @@ public class MiaoshaUser {
 	}
 	public void setLoginCount(Integer loginCount) {
 		this.loginCount = loginCount;
+	}
+	public Integer getMerchant() {
+		return merchant;
+	}
+	public void setMerchant(Integer merchant) {
+		this.merchant = merchant;
+	}
+
+	@Override
+	public String toString() {
+		return "MiaoshaUser{" +
+				"id=" + id +
+				", nickname='" + nickname + '\'' +
+				", password='" + password + '\'' +
+				", salt='" + salt + '\'' +
+				", head='" + head + '\'' +
+				", registerDate=" + registerDate +
+				", lastLoginDate=" + lastLoginDate +
+				", loginCount=" + loginCount +
+				", merchant=" + merchant +
+				'}';
 	}
 }

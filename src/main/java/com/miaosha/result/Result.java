@@ -12,6 +12,10 @@ public class Result<T> {
 	public static  <T> Result<T> success(T data){
 		return new Result<T>(data);
 	}
+
+	public static <T> Result<T> merchant_success(){
+		return new Result<T>(CodeMsg.MERCHANT_SUCCESS);
+	}
 	
 	/**
 	 *  失败时候的调用
@@ -23,6 +27,7 @@ public class Result<T> {
 	private Result(T data) {
 		this.data = data;
 	}
+
 	
 	private Result(int code, String msg) {
 		this.code = code;

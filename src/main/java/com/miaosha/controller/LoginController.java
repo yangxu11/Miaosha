@@ -37,7 +37,14 @@ public class LoginController {
     public Result<String> doLogin(HttpServletResponse response, @Valid LoginVo loginVo) {
     	log.info(loginVo.toString());
     	//登录
-    	String token = userService.login(response, loginVo);
-    	return Result.success(token);
+    	return userService.login(response, loginVo);
     }
+//    @RequestMapping("/merchant_login")
+//    @ResponseBody
+//    public Result<String> merchantLogin(HttpServletResponse response, @Valid LoginVo loginVo) {
+//        log.info(loginVo.toString());
+//        //登录
+//        String token = userService.merchant_login(response, loginVo);
+//        return Result.success(token);
+//    }
 }

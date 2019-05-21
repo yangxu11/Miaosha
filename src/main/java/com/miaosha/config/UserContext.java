@@ -10,7 +10,7 @@ import com.miaosha.domain.MiaoshaUser;
  **/
 public class UserContext {
 
-    public static ThreadLocal<MiaoshaUser> userContext = new ThreadLocal<>();
+    public static ThreadLocal<MiaoshaUser> userContext = new ThreadLocal<MiaoshaUser>();
 
     public static void setUser(MiaoshaUser user){
         userContext.set(user);

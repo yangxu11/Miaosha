@@ -83,10 +83,23 @@
             <td>库存数量</td>
             <td colspan="3"  id="stockCount"></td>
         </tr>
+        <tr>
+            <td>客服</td>
+            <td colspan="3"><button onclick="getKefu()">客服</button></td>
+        </tr>
+
     </table>
 </div>
 </body>
 <script>
+
+    var goodsId = g_getQueryString("goodsId");
+
+    function getKefu(){
+        var url = "/chat.htm?goodsId="+goodsId;
+        window.open(url);
+    }
+
 
     function getMiaoshaPath(){
         var goodsId = $("#goodsId").val();

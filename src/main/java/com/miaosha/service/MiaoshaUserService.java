@@ -3,7 +3,12 @@ package com.miaosha.service;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import com.miaosha.domain.Goods;
+import com.miaosha.domain.MiaoshaGoods;
 import com.miaosha.exception.GlobalException;
+import com.miaosha.redis.GoodsKey;
+import com.miaosha.result.Result;
+import com.miaosha.vo.GoodsVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +34,11 @@ public class MiaoshaUserService {
 	@Autowired
 	RedisService redisService;
 
+	@Autowired
+	GoodsService goodsService;
+
+	//从数据库中根据id取用户
+	//在缓存中存 id - user
 	public MiaoshaUser getById(long id) {
 		//取缓存
 		MiaoshaUser user = redisService.get(MiaoshaUserKey.getById, ""+id, MiaoshaUser.class);
@@ -75,7 +85,7 @@ public class MiaoshaUserService {
 	}
 	
 
-	public String login(HttpServletResponse response, LoginVo loginVo) {
+	public Result<String> login(HttpServletResponse response, LoginVo loginVo) {
 		if(loginVo == null) {
 			throw new GlobalException(CodeMsg.SERVER_ERROR);
 		}
@@ -96,9 +106,26 @@ public class MiaoshaUserService {
 		//生成cookie
 		String token	 = UUIDUtil.uuid();
 		addCookie(response, token, user);
-		return token;
+		//如果是商家，返回商家登录成功信息
+		if(user.getMerchant()>0){
+			//redis中缓存 商家id(商品id) - token   为websocket中用户可以根据商品id在map中找到商家socket
+			redisService.set(MiaoshaUserKey.merchant,""+user.getMerchant(),token);
+			return Result.merchant_success();
+		}else{
+			return Result.success(token);
+		}
+
 	}
-	
+	/*
+	 * @Author YX
+	 * @Description
+	 * @Date 17:00 2019/5/20
+	 * @Param [response, token, user]
+	 * @return void
+	 *添加浏览器cookie
+	 *添加  token - user缓存
+	 **/
+
 	private void addCookie(HttpServletResponse response, String token, MiaoshaUser user) {
 		redisService.set(MiaoshaUserKey.token, token, user);
 		Cookie cookie = new Cookie(COOKI_NAME_TOKEN, token);
@@ -106,5 +133,41 @@ public class MiaoshaUserService {
 		cookie.setPath("/");
 		response.addCookie(cookie);
 	}
-
+//	private void addCookie_merchant(HttpServletResponse response, String token, GoodsVo goods) {
+//		redisService.set(GoodsKey.GoodsIdToken, token, goods);
+//		Cookie cookie = new Cookie(COOKI_NAME_TOKEN, token);
+//		cookie.setMaxAge(GoodsKey.GoodsIdToken.expireSeconds());
+//		cookie.setPath("/");
+//		response.addCookie(cookie);
+//	}
+//
+//	public String merchant_login(HttpServletResponse response, LoginVo loginVo) {
+//		if(loginVo == null) {
+//			throw new GlobalException(CodeMsg.SERVER_ERROR);
+//		}
+//		String goodsId = loginVo.getMobile();
+//		//判断商家是否存在
+//		GoodsVo good = getGooodsById(Long.parseLong(goodsId));
+//		if(good == null) {
+//			throw new GlobalException(CodeMsg.MOBILE_NOT_EXIST);
+//		}
+//		//生成cookie
+//		String token	 = UUIDUtil.uuid();
+//		addCookie_merchant(response, token, good);
+//		return token;
+//	}
+//
+//	private GoodsVo getGooodsById(long id) {
+//		//取缓存
+//		GoodsVo good = redisService.get(MiaoshaUserKey.getById, ""+id, GoodsVo.class);
+//		if(good!= null) {
+//			return good;
+//		}
+//		//取数据库
+//		good = goodsService.getGoodsVoByGoodsId(id);
+//		if(good != null) {
+//			redisService.set(GoodsKey.GoodsId, ""+id, good);
+//		}
+//		return good;
+//	}
 }
