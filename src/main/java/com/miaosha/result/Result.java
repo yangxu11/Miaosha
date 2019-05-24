@@ -5,7 +5,9 @@ public class Result<T> {
 	private int code;
 	private String msg;
 	private T data;
-	
+
+
+	public static final String SUCCESS = "success";
 	/**
 	 *  成功时候的调用
 	 * */

@@ -3,12 +3,14 @@ package com.miaosha.service;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import com.miaosha.dao.UserDao;
 import com.miaosha.domain.Goods;
 import com.miaosha.domain.MiaoshaGoods;
 import com.miaosha.exception.GlobalException;
 import com.miaosha.redis.GoodsKey;
 import com.miaosha.result.Result;
 import com.miaosha.vo.GoodsVo;
+import com.miaosha.vo.RegistVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,12 +24,15 @@ import com.miaosha.util.MD5Util;
 import com.miaosha.util.UUIDUtil;
 import com.miaosha.vo.LoginVo;
 
+import java.util.Date;
+
 @Service
 public class MiaoshaUserService {
 	
 	
 	public static final String COOKI_NAME_TOKEN = "token";
-	
+	public static final String SALT = "1a2b3c4d";
+
 	@Autowired
 	MiaoshaUserDao miaoshaUserDao;
 	
@@ -133,6 +138,35 @@ public class MiaoshaUserService {
 		cookie.setPath("/");
 		response.addCookie(cookie);
 	}
+
+	/*
+	 * @Author YX
+	 * @Description
+	 * 实现注册功能
+	 * @Date 15:08 2019/5/24
+	 * @Param [response, registVo]
+	 * @return com.miaosha.result.Result<java.lang.String>
+	 **/
+    public Result<String> regist(HttpServletResponse response, RegistVo registVo) {
+    	String mobile = registVo.getMobile();
+    	MiaoshaUser user = miaoshaUserDao.getById(Long.parseLong(mobile));
+    	if(user!=null){
+    		return Result.error(CodeMsg.USER_EXIST);
+		}
+		Date date = new Date();
+    	String salt = SALT;
+    	String password = registVo.getPassword();
+    	password = MD5Util.formPassToDBPass(password,salt);
+    	MiaoshaUser registUser = new MiaoshaUser();
+    	registUser.setId(Long.parseLong(mobile));
+    	registUser.setNickname(registVo.getNickname());
+    	registUser.setSalt(salt);
+    	registUser.setPassword(password);
+    	registUser.setRegisterDate(date);
+    	registUser.setMerchant(0);
+    	miaoshaUserDao.addUser(registUser);
+    	return Result.success(Result.SUCCESS);
+    }
 //	private void addCookie_merchant(HttpServletResponse response, String token, GoodsVo goods) {
 //		redisService.set(GoodsKey.GoodsIdToken, token, goods);
 //		Cookie cookie = new Cookie(COOKI_NAME_TOKEN, token);

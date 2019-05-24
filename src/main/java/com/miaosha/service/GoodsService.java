@@ -29,5 +29,9 @@ public class GoodsService {
 		int ret = goodsDao.reduceStock(g);
 		return ret>0;
 	}
+
+	public Long getMerchantById(long goodsId){
+		return goodsDao.getMerchantById(goodsId);
+	}
 	
 }

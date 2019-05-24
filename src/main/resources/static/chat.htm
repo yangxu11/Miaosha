@@ -34,7 +34,7 @@
 <body>
 
 <div class="panel panel-default" style="height:100%;background-color:rgba(222,222,222,0.8)" >
-    <div class="panel-heading">客服</div>
+    <div class="panel-heading" id="custom" value=""></div>
     <div class="panel-body">
     </div>
     <table class="table" id="chatlist">
@@ -63,6 +63,7 @@
     socket.onopen = function() {
         console.log("Socket 已打开");
         layer.msg("Socket 已打开");
+
         //socket.send("这是来自客户端的消息" + location.href + new Date());
     };
     //获得消息事件
@@ -77,12 +78,14 @@
             //将状态信息以窗口行式弹出
             layer.msg(data);
         } else {
+            $("#custom").text(""+json.src+"");
+            $("#custom").val(""+json.src+"");
             //将msg写入到页面
             var trHTML = "<tr bgcolor='#fffaf0'><td> 商家 : "+data+"</td></tr>";
+            $("#chatlist").append(trHTML);
         }
 
-        //将输入框置空
-        $("#chatlist").append(trHTML);
+
     };
     //关闭事件
     socket.onclose = function() {
@@ -97,7 +100,12 @@
 
     //在websocket连接的基础上发送消息
     function sendMessage(){
-        var msg = token +";"+goodsId + ";" + $("#content").val();
+        //得到目标IP，如果没有，就使用商品id代替
+        var dst =  $("#custom").val();
+        if(dst == null || dst.length==0){
+            dst = goodsId;
+        }
+        var msg = token +";"+ dst + ";" + $("#content").val();
         socket.send(msg);
 
         var trHTML = "<tr bgcolor='#f5f5dc'><td> 我 : "+$("#content").val()+"</td></tr>";

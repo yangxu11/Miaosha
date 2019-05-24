@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public class ValidatorUtil {
 	
-	private static final Pattern mobile_pattern = Pattern.compile("1\\d{10}");
+	private static final Pattern mobile_pattern = Pattern.compile("[1-9]\\d{10}");
 	
 	public static boolean isMobile(String src) {
 		if(StringUtils.isEmpty(src)) {

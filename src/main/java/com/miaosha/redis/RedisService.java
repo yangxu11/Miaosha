@@ -30,6 +30,22 @@ public class RedisService {
 			  returnToPool(jedis);
 		 }
 	}
+	/*
+	 * @Author YX
+	 *获取集合数据
+	 **/
+	public String getArray(KeyPrefix prefix, String key){
+		Jedis jedis = null;
+		try {
+			jedis =  jedisPool.getResource();
+			//生成真正的key
+			String realKey  = prefix.getPrefix() + key;
+			String  str = jedis.get(realKey);
+			return str;
+		}finally {
+			returnToPool(jedis);
+		}
+	}
 	
 	/**
 	 * 设置对象

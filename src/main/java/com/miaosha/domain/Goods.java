@@ -8,6 +8,7 @@ public class Goods {
 	private String goodsDetail;
 	private Double goodsPrice;
 	private Integer goodsStock;
+	private Long goodsMerchant;
 	public Long getId() {
 		return id;
 	}
@@ -49,5 +50,11 @@ public class Goods {
 	}
 	public void setGoodsStock(Integer goodsStock) {
 		this.goodsStock = goodsStock;
+	}
+	public Long getGoodsMerchant() {
+		return goodsMerchant;
+	}
+	public void setGoodsMerchant(Long goodsMerchant) {
+		this.goodsMerchant = goodsMerchant;
 	}
 }

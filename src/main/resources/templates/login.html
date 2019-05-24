@@ -47,9 +47,12 @@
 	</div>
 	
 	<div class="row">
-		     	<div class="col-md-5">
-	       	 		<button class="btn btn-primary btn-block" type="reset" onclick="reset()">重置</button>
-	       	 	</div>
+		     	<!--<div class="col-md-5">-->
+	       	 		<!--<button class="btn btn-primary btn-block" type="reset" onclick="reset()">重置</button>-->
+	       	 	<!--</div>-->
+				<div class="col-md-5">
+					<button class="btn btn-primary btn-block" type="reset" onclick="regist()">注册</button>
+				</div>
 	       	 	<div class="col-md-5">
 	       	 		<button class="btn btn-primary btn-block" type="submit" onclick="login()">登录</button>
 	       	 	</div>
@@ -65,6 +68,12 @@ function login(){
         }    
     });
 }
+
+function regist(){
+	window.location.href="/regist/to_regist";
+}
+
+
 function doLogin(){
 	g_showLoading();
 	

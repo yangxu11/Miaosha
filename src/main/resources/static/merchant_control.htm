@@ -34,7 +34,7 @@
 <body>
 
 <div class="panel panel-default" style="height:100%;background-color:rgba(222,222,222,0.8)" >
-    <div class="panel-heading" id="custom"></div>
+    <div class="panel-heading" id="custom" value=""></div>
     <div class="panel-body">
     </div>
     <table class="table" id="chatlist">
@@ -76,6 +76,7 @@
             //将状态信息以窗口行式弹出
             layer.msg(data);
         } else{
+            $("#custom").text(""+json.src+"");
             $("#custom").val(""+json.src+"");
             //将msg写入到页面
             var trHTML = "<tr bgcolor='#fffaf0'><td> 客户 : "+data+"</td></tr>";
